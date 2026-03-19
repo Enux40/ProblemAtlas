@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Problem {
+  id                   String             @id @default(cuid())
+  slug                 String             @unique
+  title                String
+  tagline              String
+  excerpt              String
+  summary              String
+  description          String             @db.Text
+  targetUser           String
+  painPoint            String             @db.Text
+  suggestedMvp         String             @db.Text
+  demandSignalsSummary String             @db.Text
+  riskNotes            String             @db.Text
+  category             String
+  industry             String?
+  geographyFocus       String?
+  companySize          String?
+  recommendedSkill     SkillLevel
+  projectTypes         ProjectType[]
+  monetizationTypes    MonetizationType[]
+  status               ProblemStatus      @default(DRAFT)
+  buildTimeValue       Int
+  buildTimeUnit        BuildTimeUnit
+  difficultyScore      Int
+  demandScore          Int
+  monetizationScore    Int
+  validationScore      Int
+  editorialScore       Int
+  featured             Boolean            @default(false)
+  publishedAt          DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  evidences            ProblemEvidence[]
+  adminNotes           AdminNote[]
+  tags                 ProblemTag[]
+  stacks               ProblemStack[]
+
+  @@index([status, featured])
+  @@index([category, recommendedSkill])
+  @@index([slug, status])
+}
+
+model ProblemEvidence {
+  id             String     @id @default(cuid())
+  problemId      String
+  title          String
+  summary        String
+  sourceType     SourceType
+  sourceName     String
+  sourceUrl      String?
+  snippet        String?    @db.Text
+  signalStrength Int
+  capturedAt     DateTime?
+  createdAt      DateTime   @default(now())
+  problem        Problem    @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@index([problemId, sourceType])
+}
+
+model ProblemTag {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  problems    Problem[]
+}
+
+model ProblemStack {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String    @unique
+  category    String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  problems    Problem[]
+}
+
+model AdminNote {
+  id         String    @id @default(cuid())
+  problemId  String
+  title      String
+  body       String    @db.Text
+  isInternal Boolean   @default(true)
+  pinned     Boolean   @default(false)
+  createdBy  String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  problem    Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@index([problemId, pinned])
+}
+
+model NewsletterSignup {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  firstName      String?
+  source         String?
+  interests      String[]
+  confirmedAt    DateTime?
+  unsubscribedAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([createdAt])
+}
+
+enum SkillLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum ProjectType {
+  SAAS
+  INTERNAL_TOOL
+  MARKETPLACE
+  AUTOMATION
+  ANALYTICS
+  DEVELOPER_TOOL
+  MOBILE_APP
+  SERVICE_BUSINESS_TOOL
+}
+
+enum MonetizationType {
+  SUBSCRIPTION
+  ONE_TIME_LICENSE
+  USAGE_BASED
+  LEAD_GEN
+  AGENCY_UPSELL
+  TRANSACTION_FEE
+}
+
+enum SourceType {
+  INTERVIEW
+  FORUM
+  JOB_POSTING
+  REVIEW_SITE
+  SEARCH_TREND
+  MARKET_REPORT
+  SUPPORT_TICKET
+  SOCIAL_POST
+}
+
+enum ProblemStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum BuildTimeUnit {
+  DAYS
+  WEEKS
+  MONTHS
+}
