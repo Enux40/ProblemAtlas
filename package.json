@@ -9,10 +9,11 @@
     "lint": "eslint .",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:seed": "node prisma/seed.js"
+    "prisma:seed": "node --experimental-strip-types prisma/seed.ts",
+    "prisma:import": "node prisma/import-problems.js"
   },
   "prisma": {
-    "seed": "node prisma/seed.js"
+    "seed": "node --experimental-strip-types prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",

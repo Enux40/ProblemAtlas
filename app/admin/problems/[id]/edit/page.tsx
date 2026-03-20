@@ -1,8 +1,15 @@
+import { ProblemStatus } from "@prisma/client";
 import type { Route } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { deleteProblem, updateProblem } from "@/app/admin/problems/actions";
+import {
+  deleteProblem,
+  updateProblem,
+  updateProblemStatus
+} from "@/app/admin/problems/actions";
 import { ProblemForm, type ProblemFormValues } from "@/components/admin/problem-form";
+import { DatabaseNotice } from "@/components/database-notice";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,6 +18,8 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { withDatabaseFallback } from "@/lib/database";
+import { formatEnumLabel } from "@/lib/problem-presenters";
 import { prisma } from "@/lib/prisma";
 
 type EditProblemPageProps = {
@@ -22,32 +31,53 @@ type EditProblemPageProps = {
 export default async function EditProblemPage({ params }: EditProblemPageProps) {
   const { id } = await params;
 
-  const [problem, tagOptions, stackOptions] = await Promise.all([
-    prisma.problem.findUnique({
-      where: { id },
-      include: {
-        evidences: {
-          orderBy: [{ signalStrength: "desc" }, { createdAt: "asc" }]
-        },
-        tags: {
-          select: { id: true }
-        },
-        stacks: {
-          select: { id: true }
-        }
-      }
-    }),
-    prisma.problemTag.findMany({
-      orderBy: { name: "asc" },
-      select: { id: true, name: true, description: true }
-    }),
-    prisma.problemStack.findMany({
-      orderBy: { name: "asc" },
-      select: { id: true, name: true, description: true }
-    })
-  ]);
+  const { data, unavailable: databaseUnavailable } = await withDatabaseFallback(
+    () =>
+      Promise.all([
+        prisma.problem.findUnique({
+          where: { id },
+          include: {
+            evidences: {
+              orderBy: [{ signalStrength: "desc" }, { createdAt: "asc" }]
+            },
+            tags: {
+              select: { id: true }
+            },
+            stacks: {
+              select: { id: true }
+            }
+          }
+        }),
+        prisma.problemTag.findMany({
+          orderBy: { name: "asc" },
+          select: { id: true, name: true, description: true }
+        }),
+        prisma.problemStack.findMany({
+          orderBy: { name: "asc" },
+          select: { id: true, name: true, description: true }
+        })
+      ]),
+    [null, [], []]
+  );
+  const [problem, tagOptions, stackOptions] = data;
 
   if (!problem) {
+    if (databaseUnavailable) {
+      return (
+        <div className="space-y-8">
+          <DatabaseNotice compact />
+          <Card>
+            <CardHeader>
+              <CardTitle>Edit route unavailable</CardTitle>
+              <CardDescription>
+                Configure `DATABASE_URL` and restart the app before editing problem records.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      );
+    }
+
     notFound();
   }
 
@@ -99,6 +129,7 @@ export default async function EditProblemPage({ params }: EditProblemPageProps) 
 
   return (
     <div className="space-y-8">
+      {databaseUnavailable ? <DatabaseNotice compact /> : null}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-accent">
@@ -108,8 +139,39 @@ export default async function EditProblemPage({ params }: EditProblemPageProps) 
           <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
             Update the brief, adjust publication status, and keep the public detail page accurate.
           </p>
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <Badge variant={getStatusBadgeVariant(problem.status)}>
+              {formatStatus(problem.status)}
+            </Badge>
+            <span className="text-sm text-muted-foreground">
+              {getStatusDescription(problem.status)}
+            </span>
+          </div>
         </div>
         <div className="flex flex-wrap gap-3">
+          <form action={updateProblemStatus.bind(null, problem.id, ProblemStatus.DRAFT)}>
+            <Button
+              type="submit"
+              variant="outline"
+              disabled={problem.status === ProblemStatus.DRAFT}
+            >
+              Move to draft
+            </Button>
+          </form>
+          <form action={updateProblemStatus.bind(null, problem.id, ProblemStatus.PUBLISHED)}>
+            <Button type="submit" disabled={problem.status === ProblemStatus.PUBLISHED}>
+              Publish
+            </Button>
+          </form>
+          <form action={updateProblemStatus.bind(null, problem.id, ProblemStatus.ARCHIVED)}>
+            <Button
+              type="submit"
+              variant="secondary"
+              disabled={problem.status === ProblemStatus.ARCHIVED}
+            >
+              Archive
+            </Button>
+          </form>
           <Button asChild variant="outline">
             <Link href={"/admin/problems" as Route}>Back to manager</Link>
           </Button>
@@ -125,7 +187,8 @@ export default async function EditProblemPage({ params }: EditProblemPageProps) 
         <CardHeader>
           <CardTitle>{problem.title}</CardTitle>
           <CardDescription>
-            Save changes here to update both the admin listing and the public directory.
+            Save changes here to update the admin record. Only published problems appear on the
+            public site.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -140,4 +203,32 @@ export default async function EditProblemPage({ params }: EditProblemPageProps) 
       </Card>
     </div>
   );
+}
+
+function getStatusBadgeVariant(status: ProblemStatus) {
+  switch (status) {
+    case ProblemStatus.PUBLISHED:
+      return "accent" as const;
+    case ProblemStatus.ARCHIVED:
+      return "outline" as const;
+    default:
+      return "default" as const;
+  }
+}
+
+function getStatusDescription(status: ProblemStatus) {
+  switch (status) {
+    case ProblemStatus.PUBLISHED:
+      return "Live on the public site.";
+    case ProblemStatus.ARCHIVED:
+      return "Hidden from the public site, but kept for reference.";
+    case ProblemStatus.DRAFT:
+      return "Private and safe to keep editing.";
+    default:
+      return "Non-public status.";
+  }
+}
+
+function formatStatus(status: ProblemStatus) {
+  return formatEnumLabel(status);
 }

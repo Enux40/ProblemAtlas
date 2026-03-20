@@ -1,12 +1,31 @@
 import type { Metadata } from "next";
 import type { Route } from "next";
 import Link from "next/link";
+import { buildPageTitle, getSiteUrl, siteDescription, siteName } from "@/lib/seo";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ProblemAtlas",
-  description:
-    "A curated atlas of real-world software problems worth solving."
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: siteName,
+    template: `%s | ${siteName}`
+  },
+  description: siteDescription,
+  alternates: {
+    canonical: "/"
+  },
+  openGraph: {
+    type: "website",
+    siteName,
+    title: buildPageTitle(),
+    description: siteDescription,
+    url: "/"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: buildPageTitle(),
+    description: siteDescription
+  }
 };
 
 const nav = [

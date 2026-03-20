@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import { ProblemStatus } from "@prisma/client";
 import type { Route } from "next";
 import Link from "next/link";
 import { ArrowRight, ChartColumn, Compass, FileStack } from "lucide-react";
+import { TrackedLink } from "@/components/analytics/tracked-link";
+import { DatabaseNotice } from "@/components/database-notice";
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
 import { SectionHeading } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
@@ -13,8 +16,10 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { withDatabaseFallback } from "@/lib/database";
 import { formatBuildTime, formatEnumLabel } from "@/lib/problem-presenters";
 import { prisma } from "@/lib/prisma";
+import { buildPageTitle } from "@/lib/seo";
 
 const pillars = [
   {
@@ -37,50 +42,84 @@ const pillars = [
   }
 ];
 
+export const metadata: Metadata = {
+  title: "Find Software Problems Worth Solving",
+  description:
+    "Explore curated software problems, demand signals, and practical MVP directions for developers, freelancers, and indie makers.",
+  alternates: {
+    canonical: "/"
+  },
+  openGraph: {
+    title: buildPageTitle("Find Software Problems Worth Solving"),
+    description:
+      "Explore curated software problems, demand signals, and practical MVP directions for developers, freelancers, and indie makers.",
+    url: "/",
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: buildPageTitle("Find Software Problems Worth Solving"),
+    description:
+      "Explore curated software problems, demand signals, and practical MVP directions for developers, freelancers, and indie makers."
+  }
+};
+
 export default async function HomePage() {
-  const [featuredProblems, stats] = await Promise.all([
-    prisma.problem.findMany({
-      where: {
-        status: ProblemStatus.PUBLISHED,
-        featured: true
-      },
-      select: {
-        id: true,
-        slug: true,
-        title: true,
-        tagline: true,
-        excerpt: true,
-        category: true,
-        recommendedSkill: true,
-        demandScore: true,
-        buildTimeValue: true,
-        buildTimeUnit: true,
-        tags: {
+  const { data, unavailable: databaseUnavailable } = await withDatabaseFallback(
+    async () =>
+      Promise.all([
+        prisma.problem.findMany({
+          where: {
+            status: ProblemStatus.PUBLISHED,
+            featured: true
+          },
           select: {
             id: true,
-            name: true
+            slug: true,
+            title: true,
+            tagline: true,
+            excerpt: true,
+            category: true,
+            recommendedSkill: true,
+            demandScore: true,
+            buildTimeValue: true,
+            buildTimeUnit: true,
+            tags: {
+              select: {
+                id: true,
+                name: true
+              },
+              take: 2
+            }
           },
-          take: 2
-        }
-      },
-      orderBy: [{ demandScore: "desc" }, { publishedAt: "desc" }],
-      take: 3
-    }),
-    prisma.problem.aggregate({
-      where: {
-        status: ProblemStatus.PUBLISHED
-      },
-      _count: {
-        _all: true
-      },
-      _avg: {
-        demandScore: true
+          orderBy: [{ demandScore: "desc" }, { publishedAt: "desc" }],
+          take: 3
+        }),
+        prisma.problem.aggregate({
+          where: {
+            status: ProblemStatus.PUBLISHED
+          },
+          _count: {
+            _all: true
+          },
+          _avg: {
+            demandScore: true
+          }
+        })
+      ]),
+    [
+      [],
+      {
+        _count: { _all: 0 },
+        _avg: { demandScore: null }
       }
-    })
-  ]);
+    ]
+  );
+  const [featuredProblems, stats] = data;
 
   return (
     <div className="space-y-20">
+      {databaseUnavailable ? <DatabaseNotice /> : null}
       <section className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <div className="space-y-8">
           <div className="inline-flex rounded-full border border-border/80 bg-background/85 px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
@@ -204,12 +243,19 @@ export default async function HomePage() {
                   </div>
                   <div className="space-y-3">
                     <CardTitle className="text-3xl">
-                      <Link
+                      <TrackedLink
                         href={`/problems/${problem.slug}` as Route}
+                        eventName="problem_card_click"
+                        eventPayload={{
+                          slug: problem.slug,
+                          title: problem.title,
+                          category: problem.category,
+                          placement: "homepage_featured"
+                        }}
                         className="transition hover:text-accent"
                       >
                         {problem.title}
-                      </Link>
+                      </TrackedLink>
                     </CardTitle>
                     <p className="text-base leading-7 text-foreground/85">{problem.tagline}</p>
                     <CardDescription className="leading-7">{problem.excerpt}</CardDescription>

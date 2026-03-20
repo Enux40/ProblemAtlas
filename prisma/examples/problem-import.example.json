@@ -1,0 +1,78 @@
+{
+  "tags": [
+    {
+      "slug": "insurance",
+      "name": "Insurance",
+      "description": "Claims, underwriting, compliance, and policy operations."
+    },
+    {
+      "slug": "operations",
+      "name": "Operations",
+      "description": "Workflow and operational coordination problems."
+    }
+  ],
+  "stacks": [
+    {
+      "slug": "twilio",
+      "name": "Twilio",
+      "category": "Messaging",
+      "description": "SMS and voice infrastructure for reminders and alerts."
+    }
+  ],
+  "problems": [
+    {
+      "slug": "claims-follow-up-for-independent-adjusters",
+      "title": "Claims follow-up for independent adjusters",
+      "tagline": "Track documents, callbacks, and next actions without juggling inboxes.",
+      "excerpt": "Independent adjusters often manage claim follow-up from email threads, spreadsheets, and memory.",
+      "summary": "Independent adjusters need a lightweight workflow to track claim status, missing documents, and policyholder follow-up.",
+      "description": "Adjusters working across multiple carriers and claims often lose time to repeated callbacks, scattered documentation, and manual reminders. A focused workflow tool could reduce dropped follow-up and make status visibility much clearer.",
+      "targetUser": "Independent insurance adjusters and small claims teams",
+      "painPoint": "Critical next steps get buried across inboxes, phone notes, and spreadsheets, making claims slower and harder to manage consistently.",
+      "suggestedMvp": "Claim tracker, status pipeline, missing-document checklist, callback reminders, and simple activity logs.",
+      "demandSignalsSummary": "Operations discussions frequently mention callback volume, missing paperwork, and fragmented claim status tracking.",
+      "riskNotes": "Workflow varies by carrier, so the first version should stay flexible and avoid deep system dependencies.",
+      "category": "Operations",
+      "industry": "Insurance",
+      "geographyFocus": "US",
+      "companySize": "1-25 adjusters",
+      "recommendedSkill": "INTERMEDIATE",
+      "projectTypes": ["SAAS", "SERVICE_BUSINESS_TOOL"],
+      "monetizationTypes": ["SUBSCRIPTION"],
+      "status": "DRAFT",
+      "buildTimeValue": 6,
+      "buildTimeUnit": "WEEKS",
+      "difficultyScore": 54,
+      "demandScore": 72,
+      "monetizationScore": 68,
+      "validationScore": 61,
+      "editorialScore": 70,
+      "featured": false,
+      "publishedAt": null,
+      "tagSlugs": ["insurance", "operations"],
+      "stackSlugs": ["next-js", "postgresql", "twilio"],
+      "evidences": [
+        {
+          "title": "Adjusters discuss callback overload",
+          "summary": "Operators describe losing track of claims due to scattered notes and follow-up steps.",
+          "sourceType": "FORUM",
+          "sourceName": "Claims operations community",
+          "sourceUrl": null,
+          "snippet": "Manual reminders and inbox search are still common ways to stay on top of open claims.",
+          "signalStrength": 3,
+          "capturedAt": "2026-03-10T09:00:00.000Z"
+        }
+      ],
+      "adminNotes": [
+        {
+          "title": "Import example note",
+          "body": "This record exists as an example for JSON-based curated imports.",
+          "createdBy": "editor@problematlas.dev",
+          "pinned": false,
+          "isInternal": true
+        }
+      ]
+    }
+  ],
+  "newsletterSignups": []
+}

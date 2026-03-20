@@ -3,6 +3,9 @@ import { MonetizationType, ProblemStatus } from "@prisma/client";
 import type { Route } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ProblemDetailViewTracker } from "@/components/analytics/problem-detail-view-tracker";
+import { TrackedLink } from "@/components/analytics/tracked-link";
+import { DatabaseNotice } from "@/components/database-notice";
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -13,12 +16,15 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { withDatabaseFallback } from "@/lib/database";
 import {
   formatBuildTime,
   formatEnumLabel,
   getMonetizationIdea
 } from "@/lib/problem-presenters";
 import { prisma } from "@/lib/prisma";
+import { matchRelatedProblems } from "@/lib/related-problems";
+import { buildPageTitle } from "@/lib/seo";
 
 type ProblemDetailPageProps = {
   params: Promise<{
@@ -58,67 +64,135 @@ export async function generateMetadata({
   params
 }: ProblemDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const problem = await prisma.problem.findFirst({
-    where: {
-      slug,
-      status: ProblemStatus.PUBLISHED
-    },
-    select: {
-      title: true,
-      excerpt: true
-    }
-  });
+  const { data: problem } = await withDatabaseFallback(
+    () =>
+      prisma.problem.findFirst({
+        where: {
+          slug,
+          status: ProblemStatus.PUBLISHED
+        },
+        select: {
+          title: true,
+          excerpt: true,
+          category: true
+        }
+      }),
+    null
+  );
 
   if (!problem) {
     return {
-      title: "Problem not found | ProblemAtlas"
+      title: "Problem not found",
+      robots: {
+        index: false,
+        follow: false
+      }
     };
   }
 
   return {
-    title: `${problem.title} | ProblemAtlas`,
-    description: problem.excerpt
+    title: problem.title,
+    description: problem.excerpt,
+    alternates: {
+      canonical: `/problems/${slug}`
+    },
+    openGraph: {
+      title: buildPageTitle(problem.title),
+      description: problem.excerpt,
+      url: `/problems/${slug}`,
+      type: "article",
+      section: problem.category
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: buildPageTitle(problem.title),
+      description: problem.excerpt
+    }
   };
 }
 
 export default async function ProblemDetailPage({ params }: ProblemDetailPageProps) {
   const { slug } = await params;
-  const problem = await getProblem(slug);
+  const { data: problem, unavailable: databaseUnavailable } = await withDatabaseFallback(
+    () => getProblem(slug),
+    null
+  );
 
   if (!problem) {
+    if (databaseUnavailable) {
+      return (
+        <div className="space-y-6">
+          <Link
+            href={"/problems" as Route}
+            className="inline-flex text-sm font-medium text-muted-foreground transition hover:text-accent"
+          >
+            Back to directory
+          </Link>
+          <DatabaseNotice />
+          <Card>
+            <CardHeader>
+              <CardTitle>Problem detail is unavailable</CardTitle>
+              <CardDescription>
+                This page needs database content to load the selected brief.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      );
+    }
+
     notFound();
   }
 
-  const relatedProblems = await prisma.problem.findMany({
-    where: {
-      status: ProblemStatus.PUBLISHED,
-      id: {
-        not: problem.id
-      },
-      OR: [
-        { category: problem.category },
-        {
-          tags: {
-            some: {
-              id: {
-                in: problem.tags.map((tag) => tag.id)
+  const { data: relatedProblemCandidates } = await withDatabaseFallback(
+    () =>
+      prisma.problem.findMany({
+        where: {
+          status: ProblemStatus.PUBLISHED,
+          id: {
+            not: problem.id
+          },
+          OR: [
+            { category: problem.category },
+            {
+              tags: {
+                some: {
+                  id: {
+                    in: problem.tags.map((tag) => tag.id)
+                  }
+                }
+              }
+            },
+            {
+              projectTypes: {
+                hasSome: problem.projectTypes
               }
             }
+          ]
+        },
+        select: {
+          id: true,
+          slug: true,
+          title: true,
+          excerpt: true,
+          category: true,
+          projectTypes: true,
+          demandScore: true,
+          difficultyScore: true,
+          monetizationScore: true,
+          tags: {
+            select: {
+              id: true,
+              name: true
+            }
           }
-        }
-      ]
-    },
-    select: {
-      id: true,
-      slug: true,
-      title: true,
-      excerpt: true,
-      category: true,
-      demandScore: true
-    },
-    orderBy: [{ demandScore: "desc" }, { publishedAt: "desc" }],
-    take: 3
-  });
+        },
+        orderBy: [{ demandScore: "desc" }, { publishedAt: "desc" }],
+        take: 18
+      }),
+    []
+  );
+  const relatedProblems = matchRelatedProblems(problem, relatedProblemCandidates);
 
   const monetizationTypes = problem.monetizationTypes.length
     ? problem.monetizationTypes
@@ -126,6 +200,11 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
 
   return (
     <div className="space-y-10">
+      <ProblemDetailViewTracker
+        slug={problem.slug}
+        title={problem.title}
+        category={problem.category}
+      />
       <div className="space-y-6">
         <Link
           href="/problems"
@@ -411,19 +490,33 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
                 </div>
               ) : (
                 relatedProblems.map((relatedProblem) => (
-                  <Link
+                  <TrackedLink
                     key={relatedProblem.id}
                     href={`/problems/${relatedProblem.slug}` as Route}
+                    eventName="problem_card_click"
+                    eventPayload={{
+                      slug: relatedProblem.slug,
+                      title: relatedProblem.title,
+                      category: relatedProblem.category,
+                      placement: "problem_detail_related"
+                    }}
                     className="rounded-[1.25rem] border border-border/70 bg-background/65 p-4 transition hover:border-accent/40 hover:bg-background"
                   >
                     <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
-                      {relatedProblem.category} / Demand {relatedProblem.demandScore}
+                      {relatedProblem.category} / Match {relatedProblem.matchScore}
                     </p>
                     <p className="mt-3 font-serif text-2xl">{relatedProblem.title}</p>
                     <p className="mt-2 text-sm leading-7 text-muted-foreground">
                       {relatedProblem.excerpt}
                     </p>
-                  </Link>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {relatedProblem.matchReasons.map((reason) => (
+                        <Badge key={reason} variant="outline">
+                          {reason}
+                        </Badge>
+                      ))}
+                    </div>
+                  </TrackedLink>
                 ))
               )}
             </CardContent>

@@ -1,0 +1,1132 @@
+[
+  {
+    "title": "Customer Inquiry Auto-Responder for Small Businesses",
+    "slug": "customer-inquiry-auto-responder-small-businesses",
+    "shortSummary": "Small businesses lose leads because they do not respond to customer inquiries quickly enough across fragmented channels.",
+    "fullDescription": "Many small service businesses receive customer inquiries through WhatsApp, email, Instagram, Facebook, and website forms. Because these channels are disconnected, responses are delayed or missed entirely. This leads to lost leads, poor customer experience, and inconsistent follow-up. A lightweight system that centralizes inbound messages and helps owners respond faster can reduce lead leakage and improve conversion.",
+    "targetUser": "Local service businesses such as plumbers, salons, repair shops, and clinics",
+    "category": "Automations",
+    "subcategory": "Lead Management",
+    "skillLevel": "INTERMEDIATE",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 3,
+    "demandScore": 5,
+    "urgencyScore": 5,
+    "monetizationScore": 4,
+    "saturationScore": 4,
+    "portfolioScore": 4,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Strong freelance + SaaS opportunity",
+    "status": "PUBLISHED",
+    "featured": true,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Observed small business workflow pattern",
+        "sourceUrl": null,
+        "evidenceSummary": "Many small businesses complain about missed inquiries and slow replies because messages are spread across several channels.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "lead response" },
+      { "tag": "messaging" },
+      { "tag": "small business" },
+      { "tag": "automation" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "Node.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Twilio API" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Strong starter category for local businesses, but messaging integrations can increase scope quickly."
+      }
+    ]
+  },
+  {
+    "title": "Appointment No-Show Reduction Tool",
+    "slug": "appointment-no-show-reduction-tool",
+    "shortSummary": "Service businesses lose revenue when customers miss appointments and reminders are handled manually.",
+    "fullDescription": "Clinics, salons, consultants, and other appointment-based businesses often suffer from no-shows. Staff spend time making reminder calls or sending manual messages, but the process is inconsistent. A lightweight reminder and confirmation tool can reduce missed appointments by sending automated reminders and letting customers confirm or reschedule easily.",
+    "targetUser": "Clinics, salons, consultants, and appointment-based businesses",
+    "category": "Automations",
+    "subcategory": "Scheduling",
+    "skillLevel": "BEGINNER",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 1,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 5,
+    "urgencyScore": 5,
+    "monetizationScore": 5,
+    "saturationScore": 4,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "High pain, easy MVP",
+    "status": "PUBLISHED",
+    "featured": true,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Common scheduling workflow issue",
+        "sourceUrl": null,
+        "evidenceSummary": "Appointment-based businesses frequently mention no-shows and rely on manual reminders through calls or messages.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "appointments" },
+      { "tag": "reminders" },
+      { "tag": "scheduling" },
+      { "tag": "sms" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Twilio API" },
+      { "stackName": "Resend" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Great early listing because the pain is obvious and MVP scope is tight."
+      }
+    ]
+  },
+  {
+    "title": "Invoice Follow-Up Automation Tool",
+    "slug": "invoice-follow-up-automation-tool",
+    "shortSummary": "Freelancers and small businesses struggle to collect unpaid invoices because follow-ups are manual and inconsistent.",
+    "fullDescription": "Late payments are a constant problem for freelancers, agencies, and small businesses. Owners often forget to follow up or feel awkward doing it manually. A simple system that tracks invoice status and sends timed reminders can improve collections and reduce admin burden without requiring full accounting software.",
+    "targetUser": "Freelancers, agencies, and small businesses",
+    "category": "Automations",
+    "subcategory": "Finance Operations",
+    "skillLevel": "INTERMEDIATE",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 3,
+    "demandScore": 5,
+    "urgencyScore": 5,
+    "monetizationScore": 5,
+    "saturationScore": 4,
+    "portfolioScore": 4,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Strong micro-SaaS candidate",
+    "status": "PUBLISHED",
+    "featured": true,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Freelancer and SME payment workflow",
+        "sourceUrl": null,
+        "evidenceSummary": "Late invoice follow-up is a recurring pain point, especially where owners use manual email reminders and spreadsheets.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "invoices" },
+      { "tag": "payments" },
+      { "tag": "accounts receivable" },
+      { "tag": "automation" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Stripe" },
+      { "stackName": "Resend" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Useful commercial angle, but avoid drifting into full accounting software."
+      }
+    ]
+  },
+  {
+    "title": "Social Media Content Planner for Small Teams",
+    "slug": "social-media-content-planner-small-teams",
+    "shortSummary": "Small teams often manage content planning in spreadsheets or chats, leading to inconsistent posting.",
+    "fullDescription": "Small brands and creator teams often lack a simple workflow for planning, drafting, and scheduling content. They rely on spreadsheets, messaging apps, or ad hoc reminders, which makes coordination messy. A lightweight planning tool can help teams organize content ideas, posting dates, and approval flow without the weight of enterprise marketing software.",
+    "targetUser": "Small brands, creators, and lean marketing teams",
+    "category": "Internal Tools",
+    "subcategory": "Content Operations",
+    "skillLevel": "BEGINNER",
+    "projectType": "PRACTICE",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 4,
+    "urgencyScore": 3,
+    "monetizationScore": 3,
+    "saturationScore": 5,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 3,
+    "overallLabel": "Good practice project",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Common small team content workflow",
+        "sourceUrl": null,
+        "evidenceSummary": "Small teams frequently coordinate content in spreadsheets and chats, causing inconsistency and missed publishing dates.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 3
+      }
+    ],
+    "tags": [
+      { "tag": "content planning" },
+      { "tag": "calendar" },
+      { "tag": "marketing" },
+      { "tag": "small teams" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Prisma" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Useful for practice, but highly saturated. Position as lightweight rather than comprehensive."
+      }
+    ]
+  },
+  {
+    "title": "Inventory Alert System for Small Shops",
+    "slug": "inventory-alert-system-small-shops",
+    "shortSummary": "Small shops and sellers often track stock manually and get surprised by stockouts or over-ordering.",
+    "fullDescription": "Retail shops and small ecommerce sellers often manage inventory with spreadsheets, memory, or basic POS exports. This makes it easy to miss low stock and hard to plan replenishment. A simple inventory alert system can track quantities, flag low-stock items, and reduce stockouts without the complexity of enterprise inventory software.",
+    "targetUser": "Retail shops and small ecommerce sellers",
+    "category": "Internal Tools",
+    "subcategory": "Inventory Operations",
+    "skillLevel": "INTERMEDIATE",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 3,
+    "demandScore": 5,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 3,
+    "portfolioScore": 4,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Strong internal tool + SaaS",
+    "status": "PUBLISHED",
+    "featured": true,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Inventory tracking pain pattern",
+        "sourceUrl": null,
+        "evidenceSummary": "Small sellers often use spreadsheets for stock tracking and regularly face low-stock surprises or poor restocking decisions.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "inventory" },
+      { "tag": "retail" },
+      { "tag": "alerts" },
+      { "tag": "operations" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Prisma" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Good balance between real-world pain and manageable MVP scope."
+      }
+    ]
+  },
+  {
+    "title": "Simple CRM for WhatsApp-Based Businesses",
+    "slug": "simple-crm-whatsapp-based-businesses",
+    "shortSummary": "Many businesses run customer relationships through WhatsApp with no structured customer tracking or history.",
+    "fullDescription": "For many small businesses, WhatsApp is the main sales and support channel. Customer information, follow-ups, and deal status are buried in chats, making it hard to stay organized. A lightweight CRM that adds tagging, notes, and history around messaging workflows can help businesses manage customers more systematically.",
+    "targetUser": "WhatsApp-first small businesses and solo operators",
+    "category": "Internal Tools",
+    "subcategory": "Customer Management",
+    "skillLevel": "INTERMEDIATE",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 3,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 4,
+    "demandScore": 5,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 3,
+    "portfolioScore": 4,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Strong niche SaaS",
+    "status": "PUBLISHED",
+    "featured": true,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "WhatsApp-first business operations pattern",
+        "sourceUrl": null,
+        "evidenceSummary": "Many small businesses use WhatsApp as their primary customer channel and lack structured customer records or follow-up workflows.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "crm" },
+      { "tag": "whatsapp" },
+      { "tag": "customer management" },
+      { "tag": "small business" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Node.js" },
+      { "stackName": "WhatsApp API" }
+    ],
+    "adminNotes": [
+      {
+        "note": "High relevance in many regions, but integration and platform policy risks should be clearly noted."
+      }
+    ]
+  },
+  {
+    "title": "Employee Shift Scheduling Tool",
+    "slug": "employee-shift-scheduling-tool",
+    "shortSummary": "Small businesses often manage staff shifts manually through chats and spreadsheets, leading to confusion and conflicts.",
+    "fullDescription": "Restaurants, shops, and service businesses frequently manage shifts in spreadsheets or group chats. This creates confusion, last-minute conflicts, and poor visibility into who is working when. A simple scheduling tool with shift assignment and notifications can improve coordination without requiring enterprise HR software.",
+    "targetUser": "Restaurants, retail businesses, and shift-based service teams",
+    "category": "Internal Tools",
+    "subcategory": "Workforce Operations",
+    "skillLevel": "INTERMEDIATE",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 3,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 4,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Good SaaS + practice",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Shift-based scheduling pain point",
+        "sourceUrl": null,
+        "evidenceSummary": "Small teams commonly coordinate schedules via WhatsApp and spreadsheets, causing avoidable errors and confusion.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "scheduling" },
+      { "tag": "shifts" },
+      { "tag": "staff management" },
+      { "tag": "retail" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Resend" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Common problem, but lots of competitors. Good if framed as lightweight and local-business friendly."
+      }
+    ]
+  },
+  {
+    "title": "Customer Feedback Collection Tool",
+    "slug": "customer-feedback-collection-tool",
+    "shortSummary": "Small businesses often collect feedback informally, which makes it hard to track issues and improve service.",
+    "fullDescription": "Many small businesses rely on casual conversations, chat messages, or ad hoc surveys to gather customer feedback. As a result, valuable insights are scattered and hard to analyze. A simple feedback collection tool can centralize ratings, comments, and issue categories so owners can spot patterns and respond faster.",
+    "targetUser": "Small and medium businesses that want structured customer feedback",
+    "category": "Internal Tools",
+    "subcategory": "Customer Insights",
+    "skillLevel": "BEGINNER",
+    "projectType": "PRACTICE",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 1,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 4,
+    "urgencyScore": 3,
+    "monetizationScore": 3,
+    "saturationScore": 4,
+    "portfolioScore": 3,
+    "practiceScore": 5,
+    "sourceConfidence": 3,
+    "overallLabel": "Great beginner project",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Informal customer feedback workflow",
+        "sourceUrl": null,
+        "evidenceSummary": "Many businesses gather feedback inconsistently and struggle to turn comments into trackable action.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 3
+      }
+    ],
+    "tags": [
+      { "tag": "feedback" },
+      { "tag": "surveys" },
+      { "tag": "customer experience" },
+      { "tag": "beginner-friendly" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Prisma" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Excellent for practice and onboarding users, even if commercial differentiation is weaker."
+      }
+    ]
+  },
+  {
+    "title": "Expense Tracking Tool for Small Businesses",
+    "slug": "expense-tracking-tool-small-businesses",
+    "shortSummary": "Small business owners often track expenses poorly, which reduces financial visibility and creates month-end stress.",
+    "fullDescription": "Owners of small businesses often record expenses in notebooks, spreadsheets, or scattered messages. This makes it hard to understand spending categories, cash flow pressure, and recurring costs. A lightweight expense tracking tool can help them log expenses, categorize them, and generate simple reports without the overhead of full accounting software.",
+    "targetUser": "Small business owners and solo operators",
+    "category": "Internal Tools",
+    "subcategory": "Finance Operations",
+    "skillLevel": "BEGINNER",
+    "projectType": "INTERNAL_TOOL",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 3,
+    "saturationScore": 4,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 3,
+    "overallLabel": "Practice + real-world relevance",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Small business expense workflow",
+        "sourceUrl": null,
+        "evidenceSummary": "Expense logging is commonly handled manually, leading to incomplete records and weak visibility into spending.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 3
+      }
+    ],
+    "tags": [
+      { "tag": "expenses" },
+      { "tag": "finance" },
+      { "tag": "reporting" },
+      { "tag": "small business" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Prisma" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Keep scope narrow and avoid drifting into tax/accounting complexity."
+      }
+    ]
+  },
+  {
+    "title": "Internal Task Tracker for Small Teams",
+    "slug": "internal-task-tracker-small-teams",
+    "shortSummary": "Small teams often track work in chats, which causes missed tasks and poor accountability.",
+    "fullDescription": "Many small teams assign work informally through chat messages or verbal instructions. Tasks get buried, ownership becomes unclear, and follow-ups are inconsistent. A simple internal task tracker can help small teams assign work, track progress, and reduce operational confusion without the overhead of enterprise project tools.",
+    "targetUser": "Small teams and operations-heavy businesses",
+    "category": "Internal Tools",
+    "subcategory": "Team Operations",
+    "skillLevel": "BEGINNER",
+    "projectType": "PRACTICE",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 1,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 4,
+    "urgencyScore": 3,
+    "monetizationScore": 3,
+    "saturationScore": 5,
+    "portfolioScore": 3,
+    "practiceScore": 5,
+    "sourceConfidence": 3,
+    "overallLabel": "Useful practice-first project",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Task coordination pattern in small teams",
+        "sourceUrl": null,
+        "evidenceSummary": "Small teams often assign work in chats and struggle with follow-up, visibility, and ownership.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 3
+      }
+    ],
+    "tags": [
+      { "tag": "tasks" },
+      { "tag": "team workflow" },
+      { "tag": "productivity" },
+      { "tag": "kanban" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Prisma" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Strong practice project, but commercially crowded."
+      }
+    ]
+  },
+  {
+    "title": "Lead Qualification Tool",
+    "slug": "lead-qualification-tool",
+    "shortSummary": "Small sales teams waste time on low-quality leads because there is no structured qualification process.",
+    "fullDescription": "Many businesses accept inbound inquiries without screening for budget, fit, urgency, or service area. Teams spend time chasing weak leads and miss better opportunities. A simple lead qualification tool can standardize intake, score prospects, and help teams prioritize follow-up.",
+    "targetUser": "Small sales teams, agencies, and service businesses",
+    "category": "Automations",
+    "subcategory": "Lead Management",
+    "skillLevel": "INTERMEDIATE",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 3,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 4,
+    "portfolioScore": 4,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Strong operational efficiency project",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Sales workflow inefficiency pattern",
+        "sourceUrl": null,
+        "evidenceSummary": "Many small businesses treat all inquiries equally and lose time pursuing leads that are a poor fit.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "lead qualification" },
+      { "tag": "sales ops" },
+      { "tag": "forms" },
+      { "tag": "prioritization" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Zod" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Good fit if paired with inquiry intake flows and simple scoring logic."
+      }
+    ]
+  },
+  {
+    "title": "Local Delivery Route Optimizer",
+    "slug": "local-delivery-route-optimizer",
+    "shortSummary": "Small delivery operations often plan routes manually, wasting time and fuel.",
+    "fullDescription": "Shops, local delivery services, and small distributors often assign delivery stops manually without route optimization. This increases fuel costs, delivery time, and scheduling stress. A simple route optimizer can help plan efficient stop order for a manageable number of deliveries.",
+    "targetUser": "Small delivery businesses, local shops, and distributors",
+    "category": "Automations",
+    "subcategory": "Logistics",
+    "skillLevel": "ADVANCED",
+    "projectType": "INTERNAL_TOOL",
+    "monetizationType": "SERVICE",
+    "estimatedBuildTime": 3,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 4,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 3,
+    "portfolioScore": 5,
+    "practiceScore": 4,
+    "sourceConfidence": 3,
+    "overallLabel": "High utility, more advanced build",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Local delivery planning workflow",
+        "sourceUrl": null,
+        "evidenceSummary": "Small delivery operations often sequence stops manually, resulting in inefficiency and avoidable delays.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 3
+      }
+    ],
+    "tags": [
+      { "tag": "routing" },
+      { "tag": "delivery" },
+      { "tag": "logistics" },
+      { "tag": "optimization" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Maps API" },
+      { "stackName": "Node.js" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Portfolio-strong, but keep MVP to simple stop ordering instead of full fleet management."
+      }
+    ]
+  },
+  {
+    "title": "Subscription Cancellation Insights Tool",
+    "slug": "subscription-cancellation-insights-tool",
+    "shortSummary": "Many small subscription businesses know customers are canceling but do not understand why.",
+    "fullDescription": "Subscription businesses often track churn at a high level but fail to capture structured cancellation reasons. Without organized feedback, they struggle to fix recurring issues or spot patterns. A cancellation insights tool can collect reasons at exit, categorize them, and surface useful trends.",
+    "targetUser": "Small SaaS businesses and subscription-based services",
+    "category": "Internal Tools",
+    "subcategory": "Retention Analytics",
+    "skillLevel": "INTERMEDIATE",
+    "projectType": "INTERNAL_TOOL",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 3,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 3,
+    "portfolioScore": 4,
+    "practiceScore": 4,
+    "sourceConfidence": 3,
+    "overallLabel": "Strong internal analytics project",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Subscription churn feedback gap",
+        "sourceUrl": null,
+        "evidenceSummary": "Small subscription businesses often know cancellation numbers but lack structured reasoning behind them.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 3
+      }
+    ],
+    "tags": [
+      { "tag": "churn" },
+      { "tag": "retention" },
+      { "tag": "analytics" },
+      { "tag": "subscription" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Stripe" },
+      { "stackName": "Charts" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Good B2B internal tool angle; keep analytics simple at first."
+      }
+    ]
+  },
+  {
+    "title": "Proposal Generator for Freelancers",
+    "slug": "proposal-generator-for-freelancers",
+    "shortSummary": "Freelancers repeatedly write similar proposals and waste time reinventing their sales documents.",
+    "fullDescription": "Freelancers and small agencies often send customized proposals, but much of the content repeats from one client to another. Writing proposals from scratch wastes time and leads to inconsistent quality. A simple proposal generator can use templates, reusable sections, and client-specific fields to speed up sales work.",
+    "targetUser": "Freelancers and small agencies",
+    "category": "Automations",
+    "subcategory": "Sales Operations",
+    "skillLevel": "BEGINNER",
+    "projectType": "PRACTICE",
+    "monetizationType": "ONE_TIME",
+    "estimatedBuildTime": 1,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 4,
+    "urgencyScore": 3,
+    "monetizationScore": 3,
+    "saturationScore": 4,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Practical and easy to ship",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Freelancer admin workflow",
+        "sourceUrl": null,
+        "evidenceSummary": "Proposal writing is repetitive work for freelancers, especially when each client requires slight customization.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "freelancing" },
+      { "tag": "proposals" },
+      { "tag": "templates" },
+      { "tag": "sales" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "PDF generation" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Fast to build and useful for practice, though differentiation may be modest."
+      }
+    ]
+  },
+  {
+    "title": "Meeting Notes Organizer",
+    "slug": "meeting-notes-organizer",
+    "shortSummary": "Teams often lose meeting notes across tools, making it hard to retrieve decisions and action items later.",
+    "fullDescription": "Meeting notes are often scattered across notebooks, shared docs, chats, and email threads. This makes follow-up difficult and causes decisions to be forgotten. A meeting notes organizer can centralize logs, allow tagging, and make past notes searchable by topic, client, or team.",
+    "targetUser": "Small teams, agencies, and consultancies",
+    "category": "Internal Tools",
+    "subcategory": "Knowledge Management",
+    "skillLevel": "BEGINNER",
+    "projectType": "PRACTICE",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 1,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 3,
+    "urgencyScore": 3,
+    "monetizationScore": 2,
+    "saturationScore": 4,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 3,
+    "overallLabel": "Good practice, weaker monetization",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Meeting documentation pain point",
+        "sourceUrl": null,
+        "evidenceSummary": "Teams frequently lose track of notes and decisions because records are spread across multiple tools.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 3
+      }
+    ],
+    "tags": [
+      { "tag": "meeting notes" },
+      { "tag": "search" },
+      { "tag": "knowledge base" },
+      { "tag": "team workflow" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Full-text search" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Useful internal tool idea; avoid turning it into a full wiki platform."
+      }
+    ]
+  },
+  {
+    "title": "Client Onboarding Checklist Tool",
+    "slug": "client-onboarding-checklist-tool",
+    "shortSummary": "Freelancers and agencies often onboard clients inconsistently, which causes delays and missed setup steps.",
+    "fullDescription": "Client onboarding often involves gathering documents, approvals, assets, credentials, and project details. When this is handled manually, steps are forgotten and timelines slip. A checklist-based onboarding tool can standardize the process and help both provider and client see what is still outstanding.",
+    "targetUser": "Freelancers, agencies, and service businesses",
+    "category": "Internal Tools",
+    "subcategory": "Client Operations",
+    "skillLevel": "BEGINNER",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 1,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 3,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Strong service-business tool",
+    "status": "PUBLISHED",
+    "featured": true,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Client onboarding workflow issue",
+        "sourceUrl": null,
+        "evidenceSummary": "Service providers frequently collect onboarding items manually and experience avoidable delays due to missing inputs.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "onboarding" },
+      { "tag": "client management" },
+      { "tag": "checklists" },
+      { "tag": "agency workflow" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Resend" }
+    ],
+    "adminNotes": [
+      {
+        "note": "One of the better launch entries because the workflow is easy to understand and easy to demo."
+      }
+    ]
+  },
+  {
+    "title": "Email Follow-Up Reminder Tool",
+    "slug": "email-follow-up-reminder-tool",
+    "shortSummary": "Important emails are often forgotten when follow-up depends entirely on memory or inbox scanning.",
+    "fullDescription": "Freelancers, consultants, and small teams often lose track of important emails that need follow-up. Busy inboxes make it easy to miss conversations that have gone cold. A simple reminder tool can let users set follow-up dates, snooze emails, and receive reminders when action is needed.",
+    "targetUser": "Freelancers, consultants, and small teams",
+    "category": "Automations",
+    "subcategory": "Communication Workflow",
+    "skillLevel": "BEGINNER",
+    "projectType": "PRACTICE",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 3,
+    "demandScore": 4,
+    "urgencyScore": 3,
+    "monetizationScore": 3,
+    "saturationScore": 4,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Practical workflow project",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Inbox management pain point",
+        "sourceUrl": null,
+        "evidenceSummary": "People regularly forget to follow up on important conversations because inboxes are noisy and reminders are manual.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "email" },
+      { "tag": "follow-up" },
+      { "tag": "reminders" },
+      { "tag": "productivity" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Email API" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Decent practice project, but inbox integrations can complicate auth and permissions."
+      }
+    ]
+  },
+  {
+    "title": "Digital Queue System for Walk-In Businesses",
+    "slug": "digital-queue-system-walk-in-businesses",
+    "shortSummary": "Walk-in businesses often manage queues informally, leaving customers with poor visibility and staff with unnecessary confusion.",
+    "fullDescription": "Barbershops, clinics, service centers, and government-style counters often rely on verbal queue management or paper tickets. Customers do not know their wait time, and staff handle the process inconsistently. A digital queue system can assign tickets, show queue status, and improve perceived service quality.",
+    "targetUser": "Walk-in businesses such as clinics, barbershops, and service counters",
+    "category": "Internal Tools",
+    "subcategory": "Service Operations",
+    "skillLevel": "INTERMEDIATE",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 3,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 3,
+    "portfolioScore": 4,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Good niche operations product",
+    "status": "PUBLISHED",
+    "featured": true,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Walk-in queue management pattern",
+        "sourceUrl": null,
+        "evidenceSummary": "Many walk-in businesses still handle queues manually, creating uncertainty for customers and inefficiency for staff.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "queue" },
+      { "tag": "walk-in" },
+      { "tag": "wait times" },
+      { "tag": "service operations" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Realtime updates" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Very demo-friendly. Good candidate for featured content."
+      }
+    ]
+  },
+  {
+    "title": "Basic Analytics Dashboard for Non-Tech Businesses",
+    "slug": "basic-analytics-dashboard-non-tech-businesses",
+    "shortSummary": "Many non-technical businesses have data but cannot turn it into simple, useful operational insights.",
+    "fullDescription": "Small businesses often have sales, inventory, or customer data in spreadsheets, POS systems, or exports, but lack a simple way to view performance. Existing analytics tools are often too generic or too complex. A basic dashboard focused on a few key metrics can help owners make better decisions without becoming analysts.",
+    "targetUser": "Non-technical small business owners",
+    "category": "Internal Tools",
+    "subcategory": "Business Reporting",
+    "skillLevel": "BEGINNER",
+    "projectType": "INTERNAL_TOOL",
+    "monetizationType": "SERVICE",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 3,
+    "demandScore": 4,
+    "urgencyScore": 3,
+    "monetizationScore": 3,
+    "saturationScore": 4,
+    "portfolioScore": 4,
+    "practiceScore": 5,
+    "sourceConfidence": 4,
+    "overallLabel": "Great portfolio and internal tool project",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Reporting gap in small businesses",
+        "sourceUrl": null,
+        "evidenceSummary": "Business data often exists, but owners struggle to transform raw records into understandable performance metrics.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "analytics" },
+      { "tag": "dashboards" },
+      { "tag": "reporting" },
+      { "tag": "small business" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Charts" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Very good portfolio project because it demonstrates CRUD, charts, and operational thinking."
+      }
+    ]
+  },
+  {
+    "title": "Document Request Tracker for Clients",
+    "slug": "document-request-tracker-for-clients",
+    "shortSummary": "Service providers often waste time chasing clients for missing documents and files.",
+    "fullDescription": "Accountants, agencies, consultants, and service providers frequently need documents from clients before work can proceed. These requests are often managed manually through email or chat, leading to delays and repeated follow-ups. A document request tracker can show what has been requested, what is still missing, and when reminders should be sent.",
+    "targetUser": "Accountants, agencies, consultants, and client-service businesses",
+    "category": "Internal Tools",
+    "subcategory": "Client Operations",
+    "skillLevel": "BEGINNER",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 2,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 3,
+    "portfolioScore": 4,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Strong client-operations workflow tool",
+    "status": "PUBLISHED",
+    "featured": true,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Client file collection workflow",
+        "sourceUrl": null,
+        "evidenceSummary": "Client-service businesses repeatedly chase missing files and approvals, which delays delivery and creates admin overhead.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "document collection" },
+      { "tag": "client operations" },
+      { "tag": "reminders" },
+      { "tag": "workflow" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "File storage" },
+      { "stackName": "Resend" }
+    ],
+    "adminNotes": [
+      {
+        "note": "One of the better niche B2B workflow entries for launch."
+      }
+    ]
+  },
+  {
+    "title": "Vendor Payment Due Tracker",
+    "slug": "vendor-payment-due-tracker",
+    "shortSummary": "Small businesses often miss supplier payment dates because obligations are tracked loosely or across multiple tools.",
+    "fullDescription": "Businesses that work with several suppliers often track payables through spreadsheets, paper notes, or memory. This increases the risk of missed due dates, damaged supplier relationships, and cash flow surprises. A simple due-date tracker can centralize upcoming vendor payments and provide reminders before deadlines.",
+    "targetUser": "Small businesses with recurring supplier payments",
+    "category": "Internal Tools",
+    "subcategory": "Finance Operations",
+    "skillLevel": "BEGINNER",
+    "projectType": "INTERNAL_TOOL",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 1,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 3,
+    "saturationScore": 3,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 3,
+    "overallLabel": "Useful finance workflow tool",
+    "status": "PUBLISHED",
+    "featured": false,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Accounts payable workflow issue",
+        "sourceUrl": null,
+        "evidenceSummary": "Small businesses often manage supplier due dates manually, which creates avoidable missed payments and stress.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 3
+      }
+    ],
+    "tags": [
+      { "tag": "vendor payments" },
+      { "tag": "payables" },
+      { "tag": "reminders" },
+      { "tag": "finance ops" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Resend" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Not flashy, but very realistic and usable for finance-heavy small businesses."
+      }
+    ]
+  },
+  {
+    "title": "Recurring Service Visit Reminder Tool",
+    "slug": "recurring-service-visit-reminder-tool",
+    "shortSummary": "Service businesses lose repeat revenue because they do not consistently remind customers when routine service is due again.",
+    "fullDescription": "Many service businesses rely on recurring customer visits, such as maintenance checks, grooming, cleaning, or follow-up treatments. However, reminders are often manual or forgotten, which reduces repeat bookings. A service visit reminder tool can track last service dates and notify customers when it is time to book again.",
+    "targetUser": "Maintenance businesses, grooming services, cleaning providers, and similar recurring-service operators",
+    "category": "Automations",
+    "subcategory": "Customer Retention",
+    "skillLevel": "BEGINNER",
+    "projectType": "MICRO_SAAS",
+    "monetizationType": "SUBSCRIPTION",
+    "estimatedBuildTime": 1,
+    "buildTimeUnit": "WEEKS",
+    "difficultyScore": 2,
+    "demandScore": 4,
+    "urgencyScore": 4,
+    "monetizationScore": 4,
+    "saturationScore": 3,
+    "portfolioScore": 3,
+    "practiceScore": 4,
+    "sourceConfidence": 4,
+    "overallLabel": "Simple retention-focused SaaS idea",
+    "status": "PUBLISHED",
+    "featured": true,
+    "evidence": [
+      {
+        "sourceType": "MANUAL_RESEARCH",
+        "sourceName": "Recurring service revenue workflow",
+        "sourceUrl": null,
+        "evidenceSummary": "Businesses that depend on repeat visits often fail to remind customers consistently, leading to avoidable revenue loss.",
+        "observedDate": "2026-03-20T00:00:00.000Z",
+        "confidenceScore": 4
+      }
+    ],
+    "tags": [
+      { "tag": "retention" },
+      { "tag": "reminders" },
+      { "tag": "repeat business" },
+      { "tag": "service operations" }
+    ],
+    "stacks": [
+      { "stackName": "Next.js" },
+      { "stackName": "PostgreSQL" },
+      { "stackName": "Twilio API" },
+      { "stackName": "Resend" }
+    ],
+    "adminNotes": [
+      {
+        "note": "Good niche angle because revenue connection is easy to explain."
+      }
+    ]
+  }
+]

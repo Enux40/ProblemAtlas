@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { signupForNewsletter, type NewsletterSignupState } from "@/app/actions/newsletter";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/analytics";
 
 type NewsletterSignupFormProps = {
   source: string;
@@ -25,9 +26,28 @@ export function NewsletterSignupForm({
     signupForNewsletter,
     initialState
   );
+  const hasSubmittedRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasSubmittedRef.current || !state.status) {
+      return;
+    }
+
+    trackEvent("newsletter_signup_submitted", {
+      source,
+      status: state.status,
+      interestsCount: interests.length
+    });
+  }, [interests.length, source, state.status]);
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form
+      action={formAction}
+      className="space-y-4"
+      onSubmit={() => {
+        hasSubmittedRef.current = true;
+      }}
+    >
       <input type="hidden" name="source" value={source} />
       {interests.map((interest) => (
         <input key={interest} type="hidden" name="interests" value={interest} />

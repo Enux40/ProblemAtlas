@@ -360,6 +360,27 @@ export function ProblemForm({
         />
       </section>
 
+      <div className="grid gap-3 rounded-[1.5rem] border border-border/70 bg-background/55 p-5 md:grid-cols-3">
+        <div>
+          <p className="text-sm font-medium">Draft</p>
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">
+            Private working state. Draft problems do not appear in public queries.
+          </p>
+        </div>
+        <div>
+          <p className="text-sm font-medium">Published</p>
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">
+            Eligible for the homepage, directory, and public problem detail pages.
+          </p>
+        </div>
+        <div>
+          <p className="text-sm font-medium">Archived</p>
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">
+            Removed from public pages while staying available in admin for edits or reuse.
+          </p>
+        </div>
+      </div>
+
       <label className="flex items-center gap-3 rounded-2xl border border-border/70 bg-background/60 px-4 py-3 text-sm">
         <input
           type="checkbox"

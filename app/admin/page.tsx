@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { isDatabaseConfigured, withDatabaseFallback } from "@/lib/database";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { prisma } from "@/lib/prisma";
 
@@ -60,14 +61,19 @@ export default async function AdminPage() {
     );
   }
 
-  const [problemCount, publishedCount] = await Promise.all([
-    prisma.problem.count(),
-    prisma.problem.count({
-      where: {
-        status: "PUBLISHED"
-      }
-    })
-  ]);
+  const { data: counts } = await withDatabaseFallback(
+    () =>
+      Promise.all([
+        prisma.problem.count(),
+        prisma.problem.count({
+          where: {
+            status: "PUBLISHED"
+          }
+        })
+      ]),
+    [0, 0]
+  );
+  const [problemCount, publishedCount] = counts;
 
   return (
     <div className="space-y-10">
@@ -76,6 +82,17 @@ export default async function AdminPage() {
         title="Editorial workspace"
         description="Manage the curated directory, shape drafts, and keep editorial quality high."
       />
+      {!isDatabaseConfigured() ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>Database setup required</CardTitle>
+            <CardDescription>
+              Admin sign-in works, but problem counts and CRUD actions need `DATABASE_URL`
+              configured before they can read or save content.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      ) : null}
       <div className="grid gap-5 md:grid-cols-2">
         <Card>
           <CardHeader>

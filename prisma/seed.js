@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const { PrismaClient } = require("@prisma/client");
+const { importCuratedContent } = require("./content-seeding");
 
 const prisma = new PrismaClient();
 
@@ -647,51 +649,29 @@ const newsletterSignups = [
 ];
 
 async function main() {
-  await prisma.adminNote.deleteMany();
-  await prisma.problemEvidence.deleteMany();
-  await prisma.newsletterSignup.deleteMany();
-  await prisma.problem.deleteMany();
-  await prisma.problemTag.deleteMany();
-  await prisma.problemStack.deleteMany();
+  await importCuratedContent(
+    prisma,
+    {
+      tags: tags.map(([slug, name, description]) => ({
+        slug,
+        name,
+        description,
+      })),
+      stacks: stacks.map(([slug, name, category, description]) => ({
+        slug,
+        name,
+        category,
+        description,
+      })),
+      problems,
+      newsletterSignups,
+    },
+    {
+      reset: true,
+    }
+  );
 
-  await prisma.problemTag.createMany({
-    data: tags.map(([slug, name, description]) => ({ slug, name, description })),
-  });
-
-  await prisma.problemStack.createMany({
-    data: stacks.map(([slug, name, category, description]) => ({
-      slug,
-      name,
-      category,
-      description,
-    })),
-  });
-
-  for (const problem of problems) {
-    const { tagSlugs, stackSlugs, evidences, adminNotes, ...problemData } = problem;
-
-    await prisma.problem.create({
-      data: {
-        ...problemData,
-        tags: {
-          connect: tagSlugs.map((slug) => ({ slug })),
-        },
-        stacks: {
-          connect: stackSlugs.map((slug) => ({ slug })),
-        },
-        evidences: {
-          create: evidences,
-        },
-        adminNotes: {
-          create: adminNotes,
-        },
-      },
-    });
-  }
-
-  await prisma.newsletterSignup.createMany({
-    data: newsletterSignups,
-  });
+  console.log(`Seeded ${problems.length} problems and ${newsletterSignups.length} newsletter signups.`);
 }
 
 main()

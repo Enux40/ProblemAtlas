@@ -5,6 +5,7 @@ import { ProblemStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/admin-auth";
+import { isDatabaseConfigured } from "@/lib/database";
 import { prisma } from "@/lib/prisma";
 import { problemFormSchema } from "@/lib/problem-form-schema";
 
@@ -146,6 +147,8 @@ async function parseProblemForm(formData: FormData): Promise<
 }
 
 function toProblemWriteData(data: ReturnType<typeof problemFormSchema.parse>) {
+  const publishedAt = data.status === ProblemStatus.PUBLISHED ? new Date() : null;
+
   return {
     title: data.title,
     slug: data.slug,
@@ -174,7 +177,7 @@ function toProblemWriteData(data: ReturnType<typeof problemFormSchema.parse>) {
     validationScore: data.validationScore,
     editorialScore: data.editorialScore,
     featured: data.featured,
-    publishedAt: data.status === ProblemStatus.PUBLISHED ? new Date() : null
+    publishedAt
   };
 }
 
@@ -183,6 +186,12 @@ export async function createProblem(
   formData: FormData
 ): Promise<ProblemFormState> {
   await requireAdmin();
+
+  if (!isDatabaseConfigured()) {
+    return {
+      message: "Database setup is required before problems can be created."
+    };
+  }
 
   const parsed = await parseProblemForm(formData);
 
@@ -235,9 +244,15 @@ export async function updateProblem(
 ): Promise<ProblemFormState> {
   await requireAdmin();
 
+  if (!isDatabaseConfigured()) {
+    return {
+      message: "Database setup is required before problems can be updated."
+    };
+  }
+
   const existing = await prisma.problem.findUnique({
     where: { id },
-    select: { slug: true }
+    select: { slug: true, publishedAt: true }
   });
 
   if (!existing) {
@@ -253,10 +268,16 @@ export async function updateProblem(
   }
 
   try {
+    const writeData = toProblemWriteData(parsed.data);
+
     await prisma.problem.update({
       where: { id },
       data: {
-        ...toProblemWriteData(parsed.data),
+        ...writeData,
+        publishedAt:
+          parsed.data.status === ProblemStatus.PUBLISHED
+            ? existing.publishedAt ?? writeData.publishedAt
+            : null,
         tags: {
           set: parsed.data.tagIds.map((tagId) => ({ id: tagId }))
         },
@@ -294,8 +315,43 @@ export async function updateProblem(
   redirect("/admin/problems" as Route);
 }
 
+export async function updateProblemStatus(id: string, status: ProblemStatus) {
+  await requireAdmin();
+
+  if (!isDatabaseConfigured()) {
+    redirect("/admin/problems" as Route);
+  }
+
+  const existing = await prisma.problem.findUnique({
+    where: { id },
+    select: { slug: true, publishedAt: true }
+  });
+
+  if (!existing) {
+    redirect("/admin/problems" as Route);
+  }
+
+  await prisma.problem.update({
+    where: { id },
+    data: {
+      status,
+      publishedAt:
+        status === ProblemStatus.PUBLISHED ? existing.publishedAt ?? new Date() : null
+    }
+  });
+
+  revalidatePath("/admin/problems");
+  revalidatePath("/problems");
+  revalidatePath(`/problems/${existing.slug}`);
+  redirect("/admin/problems" as Route);
+}
+
 export async function deleteProblem(id: string) {
   await requireAdmin();
+
+  if (!isDatabaseConfigured()) {
+    redirect("/admin/problems" as Route);
+  }
 
   const existing = await prisma.problem.findUnique({
     where: { id },

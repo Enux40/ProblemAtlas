@@ -1,6 +1,7 @@
 "use server";
 
 import { Prisma } from "@prisma/client";
+import { isDatabaseConfigured } from "@/lib/database";
 import { newsletterSignupSchema } from "@/lib/newsletter";
 import { prisma } from "@/lib/prisma";
 
@@ -22,6 +23,13 @@ export async function signupForNewsletter(
   _prevState: NewsletterSignupState,
   formData: FormData
 ): Promise<NewsletterSignupState> {
+  if (!isDatabaseConfigured()) {
+    return {
+      status: "error",
+      message: "Newsletter signup is unavailable until the database is configured."
+    };
+  }
+
   const parsed = newsletterSignupSchema.safeParse({
     email: getString(formData, "email"),
     firstName: getString(formData, "firstName"),

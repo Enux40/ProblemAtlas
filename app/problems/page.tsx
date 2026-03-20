@@ -1,7 +1,11 @@
+import type { Metadata } from "next";
 import type { Prisma } from "@prisma/client";
 import { BuildTimeUnit, ProblemStatus, ProjectType, SkillLevel } from "@prisma/client";
 import type { Route } from "next";
 import Link from "next/link";
+import { ProblemsFilterForm } from "@/components/analytics/problems-filter-form";
+import { TrackedLink } from "@/components/analytics/tracked-link";
+import { DatabaseNotice } from "@/components/database-notice";
 import { SectionHeading } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,8 +16,10 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { withDatabaseFallback } from "@/lib/database";
 import { formatBuildTime, formatEnumLabel } from "@/lib/problem-presenters";
 import { prisma } from "@/lib/prisma";
+import { buildPageTitle } from "@/lib/seo";
 
 type SearchParams = {
   q?: string | string[];
@@ -64,6 +70,49 @@ const sortOptions = [
   { value: "fastest", label: "Fastest to build" },
   { value: "recent", label: "Most recent" }
 ] as const;
+
+export async function generateMetadata({
+  searchParams
+}: ProblemsPageProps): Promise<Metadata> {
+  const resolvedSearchParams = await searchParams;
+  const category = getSingleValue(resolvedSearchParams.category)?.trim() ?? "";
+  const query = getSingleValue(resolvedSearchParams.q)?.trim() ?? "";
+  const canonicalParams = new URLSearchParams();
+
+  if (category) {
+    canonicalParams.set("category", category);
+  }
+
+  const title = category
+    ? `${category} Software Problems`
+    : query
+      ? `Search: ${query}`
+      : "Problem Directory";
+  const description = category
+    ? `Browse curated ${category.toLowerCase()} software problems, demand signals, and practical MVP ideas.`
+    : query
+      ? `Search the ProblemAtlas directory for software problems related to ${query}.`
+      : "Search the ProblemAtlas directory by category, skill level, demand, and build time.";
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalParams.size > 0 ? `/problems?${canonicalParams.toString()}` : "/problems"
+    },
+    openGraph: {
+      title: buildPageTitle(title),
+      description,
+      url: canonicalParams.size > 0 ? `/problems?${canonicalParams.toString()}` : "/problems",
+      type: "website"
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: buildPageTitle(title),
+      description
+    }
+  };
+}
 
 function getSingleValue(value?: string | string[]) {
   return Array.isArray(value) ? value[0] : value;
@@ -177,53 +226,58 @@ export default async function ProblemsPage({ searchParams }: ProblemsPageProps) 
   const buildTimeWhere = getBuildTimeWhere(filters.buildTime);
   const queryWhere = buildTimeWhere ? { AND: [where, buildTimeWhere] } : where;
 
-  const [categories, featuredProblems, problems] = await Promise.all([
-    prisma.problem.findMany({
-      where: { status: ProblemStatus.PUBLISHED },
-      select: { category: true },
-      distinct: ["category"],
-      orderBy: { category: "asc" }
-    }),
-    prisma.problem.findMany({
-      where: {
-        status: ProblemStatus.PUBLISHED,
-        featured: true
-      },
-      select: {
-        id: true,
-        slug: true,
-        title: true,
-        category: true
-      },
-      orderBy: [{ demandScore: "desc" }, { publishedAt: "desc" }],
-      take: 3
-    }),
-    prisma.problem.findMany({
-      where: queryWhere,
-      select: {
-        id: true,
-        slug: true,
-        title: true,
-        tagline: true,
-        excerpt: true,
-        category: true,
-        recommendedSkill: true,
-        projectTypes: true,
-        demandScore: true,
-        buildTimeValue: true,
-        buildTimeUnit: true,
-        featured: true,
-        tags: {
+  const { data, unavailable: databaseUnavailable } = await withDatabaseFallback(
+    async () =>
+      Promise.all([
+        prisma.problem.findMany({
+          where: { status: ProblemStatus.PUBLISHED },
+          select: { category: true },
+          distinct: ["category"],
+          orderBy: { category: "asc" }
+        }),
+        prisma.problem.findMany({
+          where: {
+            status: ProblemStatus.PUBLISHED,
+            featured: true
+          },
           select: {
             id: true,
-            name: true
+            slug: true,
+            title: true,
+            category: true
           },
+          orderBy: [{ demandScore: "desc" }, { publishedAt: "desc" }],
           take: 3
-        }
-      },
-      orderBy: getOrderBy(filters.sort)
-    })
-  ]);
+        }),
+        prisma.problem.findMany({
+          where: queryWhere,
+          select: {
+            id: true,
+            slug: true,
+            title: true,
+            tagline: true,
+            excerpt: true,
+            category: true,
+            recommendedSkill: true,
+            projectTypes: true,
+            demandScore: true,
+            buildTimeValue: true,
+            buildTimeUnit: true,
+            featured: true,
+            tags: {
+              select: {
+                id: true,
+                name: true
+              },
+              take: 3
+            }
+          },
+          orderBy: getOrderBy(filters.sort)
+        })
+      ]),
+    [[], [], []]
+  );
+  const [categories, featuredProblems, problems] = data;
 
   const categoryOptions = categories.map((item) => item.category);
   const sortedProblems =
@@ -251,6 +305,7 @@ export default async function ProblemsPage({ searchParams }: ProblemsPageProps) 
 
   return (
     <div className="space-y-10">
+      {databaseUnavailable ? <DatabaseNotice /> : null}
       <SectionHeading
         eyebrow="Directory"
         title="Search the curated problem directory"
@@ -275,7 +330,7 @@ export default async function ProblemsPage({ searchParams }: ProblemsPageProps) 
             </div>
           </CardHeader>
           <CardContent>
-            <form className="space-y-5" method="get">
+            <ProblemsFilterForm>
               <label className="grid gap-2">
                 <span className="text-sm font-medium">Search</span>
                 <input
@@ -388,7 +443,7 @@ export default async function ProblemsPage({ searchParams }: ProblemsPageProps) 
                   <Link href={"/problems" as Route}>Clear all</Link>
                 </Button>
               </div>
-            </form>
+            </ProblemsFilterForm>
           </CardContent>
         </Card>
 
@@ -403,16 +458,23 @@ export default async function ProblemsPage({ searchParams }: ProblemsPageProps) 
                 </div>
                 <div className="grid gap-3 md:grid-cols-3">
                   {featuredProblems.map((problem) => (
-                    <Link
+                    <TrackedLink
                       key={problem.id}
                       href={`/problems/${problem.slug}` as Route}
+                      eventName="problem_card_click"
+                      eventPayload={{
+                        slug: problem.slug,
+                        title: problem.title,
+                        category: problem.category,
+                        placement: "directory_featured_strip"
+                      }}
                       className="rounded-[1.25rem] border border-border/70 bg-background/65 px-4 py-4 transition hover:border-accent/40 hover:bg-background"
                     >
                       <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                         {problem.category}
                       </p>
                       <p className="mt-3 font-serif text-2xl">{problem.title}</p>
-                    </Link>
+                    </TrackedLink>
                   ))}
                 </div>
               </CardHeader>
@@ -476,12 +538,19 @@ export default async function ProblemsPage({ searchParams }: ProblemsPageProps) 
                     </div>
                     <div className="space-y-3">
                       <CardTitle className="text-3xl">
-                        <Link
+                        <TrackedLink
                           href={`/problems/${problem.slug}` as Route}
+                          eventName="problem_card_click"
+                          eventPayload={{
+                            slug: problem.slug,
+                            title: problem.title,
+                            category: problem.category,
+                            placement: "directory_card_title"
+                          }}
                           className="transition hover:text-accent"
                         >
                           {problem.title}
-                        </Link>
+                        </TrackedLink>
                       </CardTitle>
                       <p className="text-lg text-foreground/85">{problem.tagline}</p>
                       <CardDescription className="max-w-3xl text-sm leading-7">
@@ -522,12 +591,19 @@ export default async function ProblemsPage({ searchParams }: ProblemsPageProps) 
                         <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                           Path
                         </p>
-                        <Link
+                        <TrackedLink
                           href={`/problems/${problem.slug}` as Route}
+                          eventName="problem_card_click"
+                          eventPayload={{
+                            slug: problem.slug,
+                            title: problem.title,
+                            category: problem.category,
+                            placement: "directory_card_cta"
+                          }}
                           className="mt-2 block text-2xl font-semibold transition hover:text-accent"
                         >
                           Open brief
-                        </Link>
+                        </TrackedLink>
                       </div>
                     </div>
                   </CardContent>
