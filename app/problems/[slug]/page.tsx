@@ -5,7 +5,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProblemDetailViewTracker } from "@/components/analytics/problem-detail-view-tracker";
 import { TrackedLink } from "@/components/analytics/tracked-link";
-import { DatabaseNotice } from "@/components/database-notice";
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -128,7 +127,6 @@ export default async function ProblemDetailPage({ params }: ProblemDetailPagePro
           >
             Back to directory
           </Link>
-          <DatabaseNotice />
           <Card>
             <CardHeader>
               <CardTitle>Problem detail is unavailable</CardTitle>

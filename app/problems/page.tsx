@@ -5,7 +5,6 @@ import type { Route } from "next";
 import Link from "next/link";
 import { ProblemsFilterForm } from "@/components/analytics/problems-filter-form";
 import { TrackedLink } from "@/components/analytics/tracked-link";
-import { DatabaseNotice } from "@/components/database-notice";
 import { SectionHeading } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -226,7 +225,7 @@ export default async function ProblemsPage({ searchParams }: ProblemsPageProps) 
   const buildTimeWhere = getBuildTimeWhere(filters.buildTime);
   const queryWhere = buildTimeWhere ? { AND: [where, buildTimeWhere] } : where;
 
-  const { data, unavailable: databaseUnavailable } = await withDatabaseFallback(
+  const { data } = await withDatabaseFallback(
     async () =>
       Promise.all([
         prisma.problem.findMany({
@@ -305,7 +304,6 @@ export default async function ProblemsPage({ searchParams }: ProblemsPageProps) 
 
   return (
     <div className="space-y-10">
-      {databaseUnavailable ? <DatabaseNotice /> : null}
       <SectionHeading
         eyebrow="Directory"
         title="Search the curated problem directory"

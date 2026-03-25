@@ -4,7 +4,6 @@ import type { Route } from "next";
 import Link from "next/link";
 import { ArrowRight, ChartColumn, Compass, FileStack } from "lucide-react";
 import { TrackedLink } from "@/components/analytics/tracked-link";
-import { DatabaseNotice } from "@/components/database-notice";
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
 import { SectionHeading } from "@/components/section-heading";
 import { Badge } from "@/components/ui/badge";
@@ -65,7 +64,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const { data, unavailable: databaseUnavailable } = await withDatabaseFallback(
+  const { data } = await withDatabaseFallback(
     async () =>
       Promise.all([
         prisma.problem.findMany({
@@ -119,7 +118,6 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-20">
-      {databaseUnavailable ? <DatabaseNotice /> : null}
       <section className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
         <div className="space-y-8">
           <div className="inline-flex rounded-full border border-border/80 bg-background/85 px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
