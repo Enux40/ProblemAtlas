@@ -13,7 +13,20 @@ Set these in your Vercel project:
 Use your production Vercel domain for `NEXT_PUBLIC_SITE_URL`, for example:
 
 ```bash
-NEXT_PUBLIC_SITE_URL="https://problematlas.vercel.app"
+NEXT_PUBLIC_SITE_URL=https://problematlas.vercel.app
+```
+
+Use the raw PostgreSQL connection string for `DATABASE_URL` with no wrapping braces or quotes:
+
+```bash
+DATABASE_URL=postgresql://username:password@host:5432/database?schema=public
+```
+
+Do not paste values like these into Vercel:
+
+```bash
+DATABASE_URL="postgresql://..."
+DATABASE_URL={postgresql://...}
 ```
 
 ## Build behavior

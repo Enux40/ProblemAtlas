@@ -1,7 +1,28 @@
 import { Prisma } from "@prisma/client";
 
+function normalizeDatabaseUrl(value?: string) {
+  if (!value) {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+  const withoutBraces =
+    trimmed.startsWith("{") && trimmed.endsWith("}") ? trimmed.slice(1, -1) : trimmed;
+  const unquoted =
+    (withoutBraces.startsWith('"') && withoutBraces.endsWith('"')) ||
+    (withoutBraces.startsWith("'") && withoutBraces.endsWith("'"))
+      ? withoutBraces.slice(1, -1)
+      : withoutBraces;
+
+  return unquoted.trim();
+}
+
 export function isDatabaseConfigured() {
-  return Boolean(process.env.DATABASE_URL);
+  const databaseUrl = normalizeDatabaseUrl(process.env.DATABASE_URL);
+  return Boolean(
+    databaseUrl &&
+      (databaseUrl.startsWith("postgresql://") || databaseUrl.startsWith("postgres://"))
+  );
 }
 
 export function isDatabaseAccessError(error: unknown) {
