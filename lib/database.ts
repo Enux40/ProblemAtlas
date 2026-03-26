@@ -26,6 +26,13 @@ export function isDatabaseConfigured() {
 }
 
 export function isDatabaseAccessError(error: unknown) {
+  if (
+    error instanceof Prisma.PrismaClientKnownRequestError &&
+    ["P2021", "P2022"].includes(error.code)
+  ) {
+    return true;
+  }
+
   if (error instanceof Prisma.PrismaClientInitializationError) {
     return true;
   }
