@@ -3,24 +3,23 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model Problem {
-  id                   String             @id @default(cuid())
+  id                   String             @id @default(auto()) @map("_id") @db.ObjectId
   slug                 String             @unique
   title                String
   tagline              String
   excerpt              String
   summary              String
-  description          String             @db.Text
+  description          String
   targetUser           String
-  painPoint            String             @db.Text
-  suggestedMvp         String             @db.Text
-  demandSignalsSummary String             @db.Text
-  riskNotes            String             @db.Text
+  painPoint            String
+  suggestedMvp         String
+  demandSignalsSummary String
+  riskNotes            String
   category             String
   industry             String?
   geographyFocus       String?
@@ -40,10 +39,12 @@ model Problem {
   publishedAt          DateTime?
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
+  tagIds               String[]           @db.ObjectId
+  stackIds             String[]           @db.ObjectId
   evidences            ProblemEvidence[]
   adminNotes           AdminNote[]
-  tags                 ProblemTag[]
-  stacks               ProblemStack[]
+  tags                 ProblemTag[]       @relation("ProblemTags", fields: [tagIds], references: [id])
+  stacks               ProblemStack[]     @relation("ProblemStacks", fields: [stackIds], references: [id])
 
   @@index([status, featured])
   @@index([category, recommendedSkill])
@@ -51,60 +52,62 @@ model Problem {
 }
 
 model ProblemEvidence {
-  id             String     @id @default(cuid())
-  problemId      String
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  problemId      String     @db.ObjectId
   title          String
   summary        String
   sourceType     SourceType
   sourceName     String
   sourceUrl      String?
-  snippet        String?    @db.Text
+  snippet        String?
   signalStrength Int
   capturedAt     DateTime?
   createdAt      DateTime   @default(now())
-  problem        Problem    @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  problem        Problem    @relation(fields: [problemId], references: [id])
 
   @@index([problemId, sourceType])
 }
 
 model ProblemTag {
-  id          String    @id @default(cuid())
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   slug        String    @unique
   name        String    @unique
   description String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  problems    Problem[]
+  problemIds  String[]  @db.ObjectId
+  problems    Problem[] @relation("ProblemTags", fields: [problemIds], references: [id])
 }
 
 model ProblemStack {
-  id          String    @id @default(cuid())
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   slug        String    @unique
   name        String    @unique
   category    String
   description String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  problems    Problem[]
+  problemIds  String[]  @db.ObjectId
+  problems    Problem[] @relation("ProblemStacks", fields: [problemIds], references: [id])
 }
 
 model AdminNote {
-  id         String    @id @default(cuid())
-  problemId  String
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  problemId  String    @db.ObjectId
   title      String
-  body       String    @db.Text
+  body       String
   isInternal Boolean   @default(true)
   pinned     Boolean   @default(false)
   createdBy  String
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
-  problem    Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  problem    Problem   @relation(fields: [problemId], references: [id])
 
   @@index([problemId, pinned])
 }
 
 model NewsletterSignup {
-  id             String    @id @default(cuid())
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
   email          String    @unique
   firstName      String?
   source         String?

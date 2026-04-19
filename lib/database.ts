@@ -21,7 +21,10 @@ export function isDatabaseConfigured() {
   const databaseUrl = normalizeDatabaseUrl(process.env.DATABASE_URL);
   return Boolean(
     databaseUrl &&
-      (databaseUrl.startsWith("postgresql://") || databaseUrl.startsWith("postgres://"))
+      (databaseUrl.startsWith("postgresql://") ||
+        databaseUrl.startsWith("postgres://") ||
+        databaseUrl.startsWith("mongodb://") ||
+        databaseUrl.startsWith("mongodb+srv://"))
   );
 }
 

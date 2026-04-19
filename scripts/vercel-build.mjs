@@ -28,11 +28,10 @@ function main() {
 
   if (environmentName === "production") {
     requireEnv("DATABASE_URL");
-    requireEnv("DIRECT_URL");
-    run("npx prisma migrate deploy");
+    run("npx prisma db push");
   } else {
     console.log(
-      `[vercel-build] Skipping prisma migrate deploy for ${environmentName} environment.`
+      `[vercel-build] Skipping prisma db push for ${environmentName} environment.`
     );
   }
 

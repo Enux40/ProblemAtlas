@@ -16,17 +16,17 @@ Use your production Vercel domain for `NEXT_PUBLIC_SITE_URL`, for example:
 NEXT_PUBLIC_SITE_URL=https://problematlas.vercel.app
 ```
 
-Use the raw PostgreSQL connection string for `DATABASE_URL` with no wrapping braces or quotes:
+Use your MongoDB Atlas connection string for `DATABASE_URL` with no wrapping braces:
 
 ```bash
-DATABASE_URL=postgresql://username:password@host:5432/database?schema=public
+DATABASE_URL=mongodb+srv://username:password@cluster0.example.mongodb.net/problematlas?retryWrites=true&w=majority
 ```
 
 Do not paste values like these into Vercel:
 
 ```bash
-DATABASE_URL="postgresql://..."
-DATABASE_URL={postgresql://...}
+DATABASE_URL="mongodb+srv://..."
+DATABASE_URL={mongodb+srv://...}
 ```
 
 ## Build behavior
@@ -38,9 +38,11 @@ The project is configured to be deployment-safe on Vercel:
 - Prisma CLI reads `prisma.config.ts`
 - Vercel uses `npm run vercel-build` through [vercel.json](/C:/Users/NGETICH/ProblemAtlas/vercel.json)
 
-## Database migrations
+## Schema sync
 
-Production deployments now run migrations automatically before `next build`:
+MongoDB deployments use Prisma schema sync instead of SQL migrations.
+
+Production deployments now sync the Prisma schema automatically before `next build`:
 
 ```bash
 npm run vercel-build
@@ -49,14 +51,14 @@ npm run vercel-build
 The flow is implemented in [scripts/vercel-build.mjs](/C:/Users/NGETICH/ProblemAtlas/scripts/vercel-build.mjs):
 
 - always runs `prisma generate`
-- runs `prisma migrate deploy` only when `VERCEL_ENV=production`
-- skips migrations on preview deployments
+- runs `prisma db push` only when `VERCEL_ENV=production`
+- skips schema sync on preview deployments
 - runs `next build` after Prisma is ready
 
-You can still run migrations manually when needed:
+You can still sync manually when needed:
 
 ```bash
-npm run prisma:migrate:deploy
+npm run prisma:push
 ```
 
 ## Seeding
@@ -75,20 +77,17 @@ npx prisma db seed
 - Output directory: leave blank
 - Production environment variables:
   - `DATABASE_URL`
-  - `DIRECT_URL`
   - `NEXT_PUBLIC_SITE_URL`
   - `ADMIN_EMAIL`
   - `ADMIN_PASSWORD`
   - `ADMIN_SESSION_SECRET`
 - Preview environment variables:
-  - `DATABASE_URL`
-  - `DIRECT_URL` if you want to run Prisma commands manually in preview
-  - `NEXT_PUBLIC_SITE_URL`
+  - `DATABASE_URL` if preview deployments should read real data
+  - `NEXT_PUBLIC_SITE_URL` optional
   - admin variables if you need admin auth in preview
 
 ## Notes
 
 - Public metadata and canonical URLs use `NEXT_PUBLIC_SITE_URL` first.
 - If that variable is missing, the app falls back to Vercel system URLs when available.
-- `DIRECT_URL` should be the non-pooling database connection string used for migrations.
-- `DATABASE_URL` should be the pooled runtime connection string when your provider recommends pooling.
+- MongoDB Atlas connection strings should come from an Atlas replica set or sharded cluster.

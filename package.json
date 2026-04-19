@@ -13,8 +13,9 @@
     "lint": "eslint .",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:migrate:deploy": "prisma migrate deploy",
+    "prisma:migrate": "prisma db push",
+    "prisma:migrate:deploy": "prisma db push",
+    "prisma:push": "prisma db push",
     "prisma:seed": "node --experimental-strip-types prisma/seed.ts",
     "prisma:import": "node prisma/import-problems.js"
   },
