@@ -31,7 +31,7 @@ export function isDatabaseConfigured() {
 export function isDatabaseAccessError(error: unknown) {
   if (
     error instanceof Prisma.PrismaClientKnownRequestError &&
-    ["P2021", "P2022"].includes(error.code)
+    ["P1001", "P2010", "P2021", "P2022"].includes(error.code)
   ) {
     return true;
   }
@@ -40,7 +40,12 @@ export function isDatabaseAccessError(error: unknown) {
     return true;
   }
 
-  return error instanceof Error && /DATABASE_URL|Can't reach database server|Prisma/.test(error.message);
+  return (
+    error instanceof Error &&
+    /DATABASE_URL|Can't reach database server|Server selection timeout|ReplicaSetNoPrimary|received fatal alert|MongoDB error|Prisma/.test(
+      error.message
+    )
+  );
 }
 
 export async function withDatabaseFallback<T>(
