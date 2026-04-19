@@ -42,7 +42,7 @@ The project is configured to be deployment-safe on Vercel:
 
 MongoDB deployments use Prisma schema sync instead of SQL migrations.
 
-Production deployments now sync the Prisma schema automatically before `next build`:
+By default, Vercel builds do **not** run `prisma db push`. This avoids build failures when Atlas network access or TLS prevents schema sync during the build step.
 
 ```bash
 npm run vercel-build
@@ -51,8 +51,10 @@ npm run vercel-build
 The flow is implemented in [scripts/vercel-build.mjs](/C:/Users/NGETICH/ProblemAtlas/scripts/vercel-build.mjs):
 
 - always runs `prisma generate`
-- runs `prisma db push` only when `VERCEL_ENV=production`
-- skips schema sync on preview deployments
+- runs `prisma db push` only when both:
+  - `VERCEL_ENV=production`
+  - `PRISMA_DB_PUSH_ON_BUILD=true`
+- skips schema sync otherwise
 - runs `next build` after Prisma is ready
 
 You can still sync manually when needed:
@@ -60,6 +62,14 @@ You can still sync manually when needed:
 ```bash
 npm run prisma:push
 ```
+
+If you intentionally want Vercel to push the schema during production builds, add:
+
+```bash
+PRISMA_DB_PUSH_ON_BUILD=true
+```
+
+Otherwise, leave it unset.
 
 ## Seeding
 
@@ -81,6 +91,7 @@ npx prisma db seed
   - `ADMIN_EMAIL`
   - `ADMIN_PASSWORD`
   - `ADMIN_SESSION_SECRET`
+  - `PRISMA_DB_PUSH_ON_BUILD` optional, only if you explicitly want schema sync on build
 - Preview environment variables:
   - `DATABASE_URL` if preview deployments should read real data
   - `NEXT_PUBLIC_SITE_URL` optional
